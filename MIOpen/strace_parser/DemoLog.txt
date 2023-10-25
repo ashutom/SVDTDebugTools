@@ -1,36 +1,7 @@
 
 //SVDTDebugTools/MIOpen/strace_parser$ python3 parse_strace_output.py miopenfd.txt
 
-
  Exception , this is not handelled.  This is not expected  <================  +++ killed by SIGABRT +++
-
-
-
- fd=3  is opened by :
-
-Traceback (most recent call last):
-  File "parse_strace_output.py", line 184, in <module>
-    main()
-  File "parse_strace_output.py", line 179, in main
-    printBT(OpenFdsBTDict[key])
-  File "parse_strace_output.py", line 153, in printBT
-    print(BTList[n].stip("\n").strip())
-AttributeError: 'str' object has no attribute 'stip'
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$
-taccuser@taccuser-B450-AORUS-PRO:~/PRs/SVDTTools/SVDTDebugTools/MIOpen/strace_parser$ python3 parse_strace_output.py miopenfd.txt
- Exception , this is not handelled.  This is not expected  <================  +++ killed by SIGABRT +++
-
-
 
  fd=3  is opened by :
 
