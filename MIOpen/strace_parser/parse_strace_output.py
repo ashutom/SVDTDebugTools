@@ -175,9 +175,20 @@ def main():
     
     OpenFdsBTDict=ParseAndCollectStackTrace(args.fileToParse)
     for key in OpenFdsBTDict:
-        print(f" fd={key}  is opened by :\n") # {OpenFdsBTDict[key]} \n\n\n ")
+        print(f" fd={key}  is opened by :\n")
         printBT(OpenFdsBTDict[key])
-        print("\n\n")
+        print("\n")
+
+    print("\n\n  Dumping Table of FD and the Driving Component")
+    for key in OpenFdsBTDict:
+        component = OpenFdsBTDict[key][0].strip("\n").strip()
+        print(f" fd={key}\t\t  : \t {component}")
+
+    print("\n\n")
+
+
+
+
 
 
 if __name__ == "__main__":
