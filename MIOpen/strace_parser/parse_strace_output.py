@@ -4,6 +4,9 @@ import argparse
 import sys
 
 
+DEBUG_FLAG=False
+
+
 #with open("/home/master/ashutosh/onlyopenclose_test.txt") as file:
 #write_file = open("onlyopenclose_test_without_errors.txt","w")
 # open a file for writing
@@ -26,7 +29,8 @@ def ParseAndWork( readfile, writefile):
 #ParseAndWork("onlyopenclose_test.txt","onlyopenclose_test_without_errors.txt")
 
 def parseOpenlinetogetfd(line):
-    linewithoutnewline=line.strip()
+    #linewithoutnewline=line.strip()
+    linewithoutnewline=line.strip("\n").strip()
     n = len(linewithoutnewline) - 1
     word=""
     while n >= 0:
@@ -45,7 +49,8 @@ def parseOpenlinetogetfd(line):
 
 
 def parseCloselinetogetfd(line):
-    linewithoutnewline=line.strip()
+    #linewithoutnewline=line.strip()
+    linewithoutnewline=line.strip("\n").strip()
     n = len(linewithoutnewline) - 1
     word=""
     start = False
@@ -71,15 +76,19 @@ def parseCloselinetogetfd(line):
 def MakeTheBackTrace(file):
 
     BT=[]
-    line = file.readline().strip("\n")
+    #line = file.readline().strip("\n")
+    line = file.readline()
     while line:
-        print(line)
+        if True == DEBUG_FLAG:
+           print(line)
+
         if (" > /")  in line  or ("> unexpected_backtracing_error") in line or ("> [stack]()") in line:
-            BT.insert(0,line.strip("\n"))
+            BT.insert(0,line)
         else:
             Readnew=False
             break
-        line = file.readline().strip("\n")
+        #line = file.readline().strip("\n")
+        line = file.readline()
     
     return BT, line, Readnew
 
@@ -93,14 +102,17 @@ def ParseAndCollectStackTrace(readfile):
         try:
             line = file.readline().strip("\n")
             while line:
-                print(line)
+                if True == DEBUG_FLAG:
+                    print(line)
+
                 Readnew=True
                 if "openat" in line:
                     #Parse for Open
                     #Check if Open failed
                     if ((") = -1 ")  in line ):
                         n = n + 1
-                        print(f" Found failure in open {n}th time.  LOG == [{line}] ")
+                        if True == DEBUG_FLAG:
+                            print(f" Found failure in open {n}th time.  LOG == [{line}] ")
                         #discard this call stack as open failed.
                         backtrace,line,Readnew=MakeTheBackTrace(file)
                     #Open succeeded
@@ -131,7 +143,15 @@ def ParseAndCollectStackTrace(readfile):
     return FdStackDictionary
 
 
-ParseAndCollectStackTrace("miopenfd.txt")
+#ParseAndCollectStackTrace("miopenfd.txt")
+
+
+def printBT(BTList):
+    n=len(BTList) - 1
+    while n >= 0:
+        #oneline=BTList[n]
+        print(BTList[n].strip("\n").strip())
+        n -= 1
 
 
 
@@ -155,8 +175,13 @@ def main():
     
     OpenFdsBTDict=ParseAndCollectStackTrace(args.fileToParse)
     for key in OpenFdsBTDict:
-        print(f" fd={key}  is opened by :\n {OpenFdsBTDict[key]} \n\n\n ")
+        print(f" fd={key}  is opened by :\n") # {OpenFdsBTDict[key]} \n\n\n ")
+        printBT(OpenFdsBTDict[key])
+        print("\n\n")
 
 
 if __name__ == "__main__":
     main()
+
+
+
